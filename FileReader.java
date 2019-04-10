@@ -1,6 +1,7 @@
-import java.io.BufferedReader;
+import lombok.AllArgsConstructor;
+import lombok.Value;
+
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.HashSet;
@@ -12,7 +13,7 @@ import java.util.function.Function;
  *
  * @author Wilfrid Askins
  */
-public class FileReader {
+public class Main {
 
     /**
      * The program's main method.
@@ -60,24 +61,19 @@ public class FileReader {
      *
      * @author Wilfrid Askins
      */
+    @Value
+    @AllArgsConstructor
     static class Entry {
 
         /** The username and password */
         private String user, pass;
 
-        public Entry(String user, String pass) {
-            this.user = user;
-            this.pass = pass;
-        }
-
-        @Override
-        public String toString() {
-            return "Entry{" +
-                    "user='" + user + '\'' +
-                    ", pass='" + pass + '\'' +
-                    '}';
-        }
-
+        /**
+         * Converts a string to an instance of Entry
+         *
+         * @param text the text to convert
+         * @return the instance of the Entry
+         */
         public static Entry valueOf(String text) {
             var parts = text.split(",");
             return new Entry(parts[0], parts[1]);
